@@ -1,0 +1,92 @@
+<project xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kw-software.com/xml/PLCopen/TC6_XML_V10_KW.xsd">
+	<fileHeader companyName="Phoenix Contact" companyURL="https://www.phoenixcontact-software.com" productName="PC WORX" productVersion="6.30" productRelease="Build 665" creationDateTime="2020-03-30T12:40:14" contentDescription="###XMLINFO=2;1;"/>
+	<contentHeader name="example-modbus-rtu" version="1585563635" modificationDateTime="2020-03-30T13:20:35" connectionCheck="true">
+		<coordinateInfo>
+			<pageSize x="999" y="9999"/>
+			<fbd>
+				<scaling x="2" y="2"/>
+			</fbd>
+			<ld>
+				<scaling x="2" y="2"/>
+			</ld>
+			<sfc>
+				<scaling x="2" y="2"/>
+			</sfc>
+		</coordinateInfo>
+	</contentHeader>
+	<types>
+		<dataTypes/>
+		<pous>
+			<pou name="MockDevices" pouType="program" lastChange="2020-03-30T13:20:35">
+				<interface>
+					<localVars retain="false">
+						<variable name="SlaveDevice_01" group="Slaves">
+							<type>
+								<derived name="SlaveDevice"/>
+							</type>
+						</variable>
+						<variable name="SlaveDevice_02" group="Slaves">
+							<type>
+								<derived name="SlaveDevice"/>
+							</type>
+						</variable>
+						<variable name="xActivateSlave01" group="Slaves">
+							<type>
+								<BOOL/>
+							</type>
+							<initialValue>
+								<simpleValue value="TRUE"/>
+							</initialValue>
+						</variable>
+						<variable name="xActivateSlave02" group="Slaves">
+							<type>
+								<BOOL/>
+							</type>
+							<initialValue>
+								<simpleValue value="TRUE"/>
+							</initialValue>
+						</variable>
+					</localVars>
+					<externalVars retain="false">
+						<variable name="udtRS485Line" group="Global">
+							<type>
+								<derived name="udtRS485Frame"/>
+							</type>
+						</variable>
+					</externalVars>
+					<localVars retain="false">
+						<variable name="xDebug" group="Global">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+					</localVars>
+				</interface>
+				<body>
+					<ST>
+						<worksheet name="MockDevices">
+							<html xmlns="http://www.w3.org/1999/xhtml">
+								<p xml:space="preserve" xmlns="http://www.w3.org/1999/xhtml">(*	Slave 01 *)<br/>SlaveDevice_01.xActivate		:= xActivateSlave01;<br/>SlaveDevice_01.xDebug			:= xDebug;<br/>SlaveDevice_01.strConsoleId		:= 'SLV_01';<br/>SlaveDevice_01.uiSlaveAddress	:= UINT#01;<br/>SlaveDevice_01.udtRS485Line		:= udtRS485Line;<br/>
+									<br/>SlaveDevice_01();<br/>
+									<br/>udtRS485Line					:= SlaveDevice_01.udtRS485Line;<br/>
+									<br/>
+									<br/>(*	Slave 02 *)<br/>SlaveDevice_02.xActivate		:= xActivateSlave02;<br/>SlaveDevice_02.xDebug			:= xDebug;<br/>SlaveDevice_02.strConsoleId		:= 'SLV_02';<br/>SlaveDevice_02.uiSlaveAddress	:= UINT#02;<br/>SlaveDevice_02.udtRS485Line		:= udtRS485Line;<br/>
+									<br/>SlaveDevice_02();<br/>
+									<br/>udtRS485Line					:= SlaveDevice_02.udtRS485Line;<br/>
+								</p>
+							</html>
+						</worksheet>
+					</ST>
+				</body>
+				<documentation>
+					<html xmlns="http://www.w3.org/1999/xhtml">
+						<div xml:space="preserve" id="MWTDESCRIPTION" wsName="MockDevicesT" xmlns="http://www.w3.org/1999/xhtml"/>
+					</html>
+				</documentation>
+			</pou>
+		</pous>
+	</types>
+	<instances>
+		<configurations/>
+	</instances>
+</project>

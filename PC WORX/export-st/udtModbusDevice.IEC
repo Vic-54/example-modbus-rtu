@@ -1,0 +1,44 @@
+(*@PROPERTIES_EX@
+TYPE: DATA_TYPE
+LOCALE: 0
+*)
+TYPE
+	udtModbusDiagValues:
+	STRUCT
+		xError							: BOOL;
+		wDiagCode						: WORD;
+		strDiagCode						: STRING;
+	END_STRUCT;
+
+	udtModbusConfiguration:
+	STRUCT
+		uiSlaveAddress					: UINT;
+	END_STRUCT;
+
+	udtDeviceConfiguration:
+	STRUCT
+		Modbus							: udtModbusConfiguration;
+	END_STRUCT;
+
+	udtDeviceDiagValues:
+	STRUCT
+		xError							: BOOL;
+		wDiagCode						: WORD;
+		strDiagCode						: STRING;
+
+		Modbus							: udtModbusDiagValues;
+	END_STRUCT;
+
+	udtModbusDeviceValues:
+	STRUCT
+		iRtcMinutes						: INT;
+	END_STRUCT;
+
+	udtModbusDevice:
+	STRUCT
+		Configuration					: udtDeviceConfiguration;
+		DataValues						: udtModbusDeviceValues;
+		DiagValues						: udtDeviceDiagValues;
+	END_STRUCT;
+END_TYPE
+

@@ -1,0 +1,222 @@
+(*@PROPERTIES_EX@
+TYPE: DATA_TYPE
+LOCALE: 0
+*)
+TYPE
+    Task_Name_Typ : ARRAY[0..9] OF BYTE;
+
+    Extended_Task_Info : STRUCT
+	    TaskName           : Task_Name_Typ;  (* Name of the Task as ARRAY OF BYTE, NULL terminated *) 
+	    TaskPrio           : INT;            (* Priority of the task *)
+	    undocumented_0     : INT;
+	    TaskPeriod         : INT;            (* Period of the task in milliseconds *)
+	    TaskStack          : INT;            (* Stack size of the task *)
+	    unused_1           : INT;
+	    TaskWatchdog       : INT;            (* Watchdog time in milliseconds *)
+	    undocumented_2     : INT;
+	    undocumented_3     : INT;
+	    undocumented_4     : INT;
+	    CurDuration        : INT;            (* Current task duration in ticks including preemption *)
+	    MinDuration        : INT;            (* Minimum task duration in ticks including preemption *)
+	    MaxDuration        : INT;            (* Maximum task duration in ticks including preemption *)
+	    undocumented_5     : INT;
+	    CurDelay           : INT;            (* Current task delay in ticks including preemption *)
+	    MinDelay           : INT;            (* Minimum task delay in ticks including preemption *)
+	    MaxDelay           : INT;            (* Maximum task delay in ticks including preemption *)
+    END_STRUCT;
+END_TYPE
+
+TYPE
+	Task_Name_eCLR : ARRAY[0..35] OF BYTE;
+	
+	Task_Info_eCLR : STRUCT
+		TaskStack       : INT;            (* Stack size of the task *)
+		TaskPrio        : INT;            (* Priority of the task *)
+		TaskPeriod_us   : DINT;           (* Period of the task in microseconds *)
+		TaskWatchdog_us : DINT;           (* Watchdog time in microseconds *)
+		TaskPeriod      : INT;            (* Period of the task in milliseconds *)
+		TaskWatchdog    : INT;            (* Watchdog time in milliseconds *)
+		MinDuration_us  : DINT;           (* Minimum task duration in microseconds including preemption *)
+		MaxDuration_us  : DINT;           (* Maximum task duration in microseconds including preemption *)
+		CurDuration_us  : DINT;           (* Current task duration in microseconds including preemption *)
+		MinDelay_us     : DINT;           (* Minimum task delay in microseconds including preemption *)
+		MaxDelay_us     : DINT;           (* Maximum task delay in microseconds including preemption *)
+		CurDelay_us     : DINT;           (* Current task delay in microseconds including preemption *)
+		MinDuration     : INT;            (* Minimum task duration in milliseconds including preemption *)
+		MaxDuration     : INT;            (* Maximum task duration in milliseconds including preemption *)
+		CurDuration     : INT;            (* Current task duration in milliseconds including preemption *)
+		MinDelay        : INT;            (* Minimum task delay in milliseconds including preemption *)
+		MaxDelay        : INT;            (* Maximum task delay in milliseconds including preemption *)
+		CurDelay        : INT;            (* Current task delay in milliseconds including preemption *)
+		unused_1        : DINT;
+		unused_2        : DINT;
+		unused_3        : DINT;
+		unused_4        : DINT;
+		unused_5        : DINT;
+		unused_6        : DINT;
+		unused_7        : DINT;
+		unused_8        : DINT;
+		unused_9        : DINT;
+		TNameMaxSize    : INT;
+		TNameSize       : INT;
+		TaskName        : Task_Name_eCLR;
+	END_STRUCT;
+END_TYPE
+ 
+TYPE
+	PND_IO_6   : ARRAY[0..5]   OF BYTE;
+	PND_IO_7   : ARRAY[0..6]   OF BYTE;   
+	PND_IO_32  : ARRAY[0..31]  OF BYTE;
+	PND_IO_64  : ARRAY[0..63]  OF BYTE;
+	PND_IO_128 : ARRAY[0..127] OF BYTE;
+	PND_IO_256 : ARRAY[0..255] OF BYTE;
+	PND_IO_512 : ARRAY[0..511] OF BYTE;
+END_TYPE
+
+TYPE
+	Redundancy_OPC_Struct : ARRAY[0..2] OF INT;
+END_TYPE
+ 
+TYPE
+    MBT_STATION_DIAG : STRUCT
+	    Status           : DWORD; (* Bit 0 = Station is online*)
+	                              (* Bit 1 = Exception exits  *)
+
+	    IP               : DWORD;
+	    OfflineCounter   : DWORD; (* Incremented by every shutdown of this station. *)
+
+	    NetCycleAvg      : DWORD; (* ms. NetInCycleAvg + NetOutCycleAvg *)
+	    NetCycleMin      : DWORD; (* ms. *)
+	    NetCycleMax      : DWORD; (* ms. *)
+
+	    NetInCycleAvg    : DWORD; (* ms. *)
+	    NetInCycleMin    : DWORD; (* ms. *)
+	    NetInCycleMax    : DWORD; (* ms. *)
+
+	    NetOutCycleAvg   : DWORD; (* ms. *)
+	    NetOutCycleMin   : DWORD; (* ms. *)
+	    NetOutCycleMax   : DWORD; (* ms. *)
+
+	    InternalError1   : DWORD; (* For internal use of Phoenix Contact! *)
+	    InternalError2   : DWORD; (* For internal use of Phoenix Contact! *)
+
+	    ExceptionCounter : DWORD; (* Incremented by every Modbus exception received on this station. *)
+	    DiagReserved1    : BYTE;  (* Reserved for a later use! *)
+	    DiagReserved2    : BYTE;  (* Reserved for a later use! *)
+	    UnitID           : BYTE;  (* Modbus Unit Identifier *)
+	    DiagReserved3    : BYTE;  (* Reserved for a later use! *)
+    END_STRUCT;
+
+    MBT_STATION_CONTROL : STRUCT
+	    ctrlStatistics      : BYTE;  (* Bit 0 = Clear  statistics *)
+	    ControlReserved1    : BYTE;  (* Reserved for a later use! *)
+	    ControlReserved2    : WORD;  (* Reserved for a later use! *)
+	    ControlReserved3    : DWORD; (* Reserved for a later use! *)
+    END_STRUCT;
+END_TYPE
+
+TYPE
+	MBS_SERVER_STATUS : STRUCT
+		AcceptCnt              : DWORD;
+		AcceptErrorCnt         : DWORD;
+		ReceiveErrorCnt        : DWORD;
+		ModbusRequestCnt       : DWORD;
+		ModbusExceptionCnt     : DWORD;
+
+		SocketErrorCode        : WORD;
+		TcpConnectedClients    : WORD;
+		LastExceptionRegister  : WORD;
+		LastExceptionRegLength : WORD;
+
+		LastExceptionNode      : BYTE;
+		LastExceptionFunction  : BYTE;
+		LastExceptionCode      : BYTE;
+		reserved               : BYTE;
+	END_STRUCT;
+END_TYPE
+
+TYPE
+	MBS_SERVER_CONTROL : STRUCT
+		Flags     : BYTE;
+		reserved1 : BYTE;
+		reserved2 : BYTE;
+		reserved3 : BYTE;
+	END_STRUCT;
+END_TYPE
+	
+TYPE
+	MBS_NODE_STATUS : STRUCT
+		ModbusRequestCnt   : DWORD;
+		ModbusExceptionCnt : DWORD;
+		Flags              : DWORD;
+		reserved           : DWORD;
+	END_STRUCT;
+END_TYPE
+
+TYPE
+    OPCUA_STATUS_INFO : STRUCT
+	  restartCount            : UDINT; (* each reset and clear cache is counted *)
+	  monitoredVariablesCount : UDINT; (* use IdataSource.GetSubscribedVariablesCount *)
+	  sessionsCount           : UDINT; (* <-- get Data from ServerDiagnostic method GetTotalSubscribedVariablesCount *)
+	  isServerEnabled         : UDINT; (* fetched by conf API *)
+	  isLicensePresent        : UDINT; (* fetched by lic API *)
+	END_STRUCT;
+END_TYPE
+
+TYPE
+    IEC61850_TIMESTAMP : STRUCT
+	    Seconds     : DWORD;
+		Fractions   : DWORD;
+        TimeQuality : DWORD;
+    END_STRUCT;
+END_TYPE
+
+TYPE 
+	PROFISAFE_DIAG_HEADER : STRUCT 
+		NumberOfFConn         : UINT; (* number of F-Connections, max 256 *) 
+		PLCHostStatusByte     : BYTE; (* status byte of Standard PLC *) 
+		SPNSAgentStatusByte   : BYTE; (* status byte of SPNS agent *) 
+		CycleCount            : UINT;   (* cycle count off the spns agent (update the shm diag area) *) 
+	END_STRUCT;
+  
+	F_MESSAGE : ARRAY[0..15] OF BYTE; (* F-message: 16 bytes *) 
+
+	F_DEVICE_DIAG : STRUCT 
+		FAddress     : WORD;      (* F address of device  *) 
+		F_WD_Time    : WORD;      (* F WD time of device  *) 
+		F_DataLenIn  : BYTE;      (* length of IN F data  *) 
+		F_MessageIn  : F_MESSAGE; (* IN F data array      *) 
+		F_DataLenOut : BYTE;      (* length of OUT F data *) 
+		F_MessageOut : F_MESSAGE; (* OUT F data array     *) 
+	END_STRUCT; 
+
+	DEVICE_DIAG_LIST : ARRAY[0..255] OF F_DEVICE_DIAG; (* array of F_DEVICE_DIAG structurs: 256 elem *) 
+
+	PROFISAFE_DIAG : STRUCT 
+		ProfisafeDiagHeader : PROFISAFE_DIAG_HEADER; (* header *) 
+		FDeviceDiagnostics  : DEVICE_DIAG_LIST;      (* list of diagnostics *) 
+	END_STRUCT; 
+END_TYPE
+
+TYPE
+	PROFISAFE_RECORD : STRUCT
+	   	CodeName              : DWORD;                   (* F_S/D_Address *)
+   		ProfiSafeDiagBitField : DWORD;
+   		SrtMin                : UINT;                    (* minimal safety round trip time of the connection *)
+   		SrtMax                : UINT;                    (* maximal safety round trip time of the connection *)
+   		SrtCur                : UINT;                    (* current safety round trip time of the connection *)
+   		FWdTime               : UINT;                    (* parameterized f-wd-time *)
+   		ValidReg              : UINT;                    (* the values in this profisafe record are balid or not *)
+      	Reserved              : UINT;                    (* to fill up the structure to a size x*4 *)
+ 	END_STRUCT;
+
+    PROFISAFE_RECORD_ARRAY : ARRAY[0..299] OF PROFISAFE_RECORD;
+
+    PROFISAFE_DIAG_OUT : STRUCT
+   		MaxNumberOfProfiSafeRecords : UINT; (* max. number of possible profisafe records *)
+   		NumberOfProfiSafeRecords    : UINT; (* current number of possible profisafe records in array *)
+   		ProfiSafeRecord             : PROFISAFE_RECORD_ARRAY;
+   		ProfiSafeGlobalRecord       : DWORD;
+ 	END_STRUCT;
+END_TYPE
+

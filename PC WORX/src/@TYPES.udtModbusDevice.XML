@@ -1,0 +1,37 @@
+<project xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kw-software.com/xml/PLCopen/TC6_XML_V10_KW.xsd">
+	<fileHeader companyName="Phoenix Contact" companyURL="https://www.phoenixcontact-software.com" productName="PC WORX" productVersion="6.30" productRelease="Build 665" creationDateTime="2020-03-30T11:47:32" contentDescription="###XMLINFO=2;1;"/>
+	<contentHeader name="example-modbus-rtu" version="1585558393" modificationDateTime="2020-03-30T11:53:13" connectionCheck="true">
+		<coordinateInfo>
+			<pageSize x="999" y="9999"/>
+			<fbd>
+				<scaling x="2" y="2"/>
+			</fbd>
+			<ld>
+				<scaling x="2" y="2"/>
+			</ld>
+			<sfc>
+				<scaling x="2" y="2"/>
+			</sfc>
+		</coordinateInfo>
+	</contentHeader>
+	<types>
+		<dataTypes>
+			<datatypeWorksheet>
+				<html xmlns="http://www.w3.org/1999/xhtml">
+					<div xml:space="preserve" id="MWTDESCRIPTION" wsName="udtModbusDevice" xmlns="http://www.w3.org/1999/xhtml">TYPE<br/>	udtModbusDiagValues:<br/>	STRUCT<br/>		xError							: BOOL;<br/>		wDiagCode						: WORD;<br/>		strDiagCode						: STRING;<br/>	END_STRUCT;<br/>
+						<br/>	udtModbusConfiguration:<br/>	STRUCT<br/>		uiSlaveAddress					: UINT;<br/>	END_STRUCT;<br/>
+						<br/>	udtDeviceConfiguration:<br/>	STRUCT<br/>		Modbus							: udtModbusConfiguration;<br/>	END_STRUCT;<br/>
+						<br/>	udtDeviceDiagValues:<br/>	STRUCT<br/>		xError							: BOOL;<br/>		wDiagCode						: WORD;<br/>		strDiagCode						: STRING;<br/>
+						<br/>		Modbus							: udtModbusDiagValues;<br/>	END_STRUCT;<br/>
+						<br/>	udtModbusDeviceValues:<br/>	STRUCT<br/>		iRtcMinutes						: INT;<br/>	END_STRUCT;<br/>
+						<br/>	udtModbusDevice:<br/>	STRUCT<br/>		Configuration					: udtDeviceConfiguration;<br/>		DataValues						: udtModbusDeviceValues;<br/>		DiagValues						: udtDeviceDiagValues;<br/>	END_STRUCT;<br/>END_TYPE<br/>
+					</div>
+				</html>
+			</datatypeWorksheet>
+		</dataTypes>
+		<pous/>
+	</types>
+	<instances>
+		<configurations/>
+	</instances>
+</project>

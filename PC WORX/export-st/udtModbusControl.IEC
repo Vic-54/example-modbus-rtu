@@ -1,0 +1,42 @@
+(*@PROPERTIES_EX@
+TYPE: DATA_TYPE
+LOCALE: 0
+*)
+TYPE
+	udtModbusControl	:
+	STRUCT
+		(* Commands to Modbus FB *)
+		uiSlaveAddress		: UINT;
+
+		xSendRequest_FC3	: BOOL;
+		uiStartAddress_FC3	: UINT;
+		iDataCount_FC3		: INT;
+
+		xSendRequest_FC4	: BOOL;
+		uiStartAddress_FC4	: UINT;
+		iDataCount_FC4		: INT;
+
+		xSendRequest_FC6	: BOOL;
+		uiStartAddress_FC6	: UINT;
+
+		(* Data from Modbus FB *)
+		xDone_FC3			: BOOL;
+		xError_FC3			: BOOL;
+		arrReadData_FC3		: arrModbus2_W_1_125;
+
+		xDone_FC4			: BOOL;
+		xError_FC4			: BOOL;
+		arrReadData_FC4		: arrModbus2_W_1_125;
+
+		xDone_FC6			: BOOL;
+		xError_FC6			: BOOL;
+		wValue_FC6			: WORD;
+
+		(* From udtMaster structure *)
+		Master_uiRcvDataCount	: UINT;
+		Master_uiSlaveAddress	: UINT;
+		Master_uiStartAddress	: UINT;
+		Master_iFunctionCode	: INT;
+	END_STRUCT;
+END_TYPE
+

@@ -1,0 +1,59 @@
+(*@PROPERTIES_EX@
+TYPE: POU
+LOCALE: 0
+IEC_LANGUAGE: FBD
+PLC_TYPE: independent
+PROC_TYPE: independent
+*)
+(*@KEY@:DESCRIPTION*)
+
+(*@KEY@:END_DESCRIPTION*)
+PROGRAM Main
+
+(*Group:Default*)
+
+
+(*@KEY@: WORKSHEET
+NAME: Main
+IEC_LANGUAGE: FBD
+*)
+[GRA]
+0 0 0 10 6 13 13 
+
+[LIT]
+0
+
+[TET]
+0
+
+[FBS]
+0
+
+[FPT]
+0
+
+[AKT]
+0
+
+[STT]
+0
+
+[TRT]
+0
+
+[KOT]
+0
+
+[VER]
+0
+
+[IBX]
+0
+
+[CON]
+1
+0
+[CON]
+
+(*@KEY@: END_WORKSHEET *)
+END_PROGRAM

@@ -1,0 +1,135 @@
+<project xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kw-software.com/xml/PLCopen/TC6_XML_V10_KW.xsd">
+	<fileHeader companyName="Phoenix Contact" companyURL="https://www.phoenixcontact-software.com" productName="PC WORX" productVersion="6.30" productRelease="Build 665" creationDateTime="2020-03-30T11:43:54" contentDescription="###XMLINFO=2;1;"/>
+	<contentHeader name="example-modbus-rtu" version="1585557834" modificationDateTime="2020-03-30T11:43:54" connectionCheck="true">
+		<coordinateInfo>
+			<pageSize x="999" y="9999"/>
+			<fbd>
+				<scaling x="2" y="2"/>
+			</fbd>
+			<ld>
+				<scaling x="2" y="2"/>
+			</ld>
+			<sfc>
+				<scaling x="2" y="2"/>
+			</sfc>
+		</coordinateInfo>
+	</contentHeader>
+	<types>
+		<dataTypes/>
+		<pous>
+			<pou name="MB_RTU_FC4_ABSTRACT" pouType="functionBlock" pouGroup="Modbus" lastChange="2020-03-30T11:43:53">
+				<interface>
+					<inputVars retain="false">
+						<variable name="xActivate" group="Input">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+						<variable name="xSendRequest" group="Input">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+						<variable name="xTimeout" group="Input">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+						<variable name="uiSlaveAddress" group="Input">
+							<type>
+								<UINT/>
+							</type>
+						</variable>
+						<variable name="uiStartAddress" group="Input">
+							<type>
+								<UINT/>
+							</type>
+						</variable>
+						<variable name="iDataCount" group="Input">
+							<type>
+								<INT/>
+							</type>
+						</variable>
+					</inputVars>
+					<outputVars retain="false">
+						<variable name="xDone" group="Output">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+						<variable name="xError" group="Output">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+						<variable name="xBusy" group="Output">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+						<variable name="arrReadData" group="Output">
+							<type>
+								<derived name="arrModbus2_W_1_125"/>
+							</type>
+						</variable>
+					</outputVars>
+					<inOutVars retain="false">
+						<variable name="udtModbusControl" group="Inout">
+							<type>
+								<derived name="udtModbusControl"/>
+							</type>
+						</variable>
+					</inOutVars>
+					<localVars retain="false">
+						<variable name="iStep" group="Default">
+							<type>
+								<INT/>
+							</type>
+						</variable>
+					</localVars>
+				</interface>
+				<body>
+					<ST>
+						<worksheet name="MB_RTU_FC4_ABSTRACT">
+							<html xmlns="http://www.w3.org/1999/xhtml">
+								<p xml:space="preserve" xmlns="http://www.w3.org/1999/xhtml">IF xActivate THEN<br/>
+									<br/>	CASE iStep OF<br/>
+									<br/>		0:<br/>
+									<br/>			xDone	:= FALSE;<br/>			xError	:= FALSE;<br/>
+									<br/>			IF xSendRequest THEN<br/>
+									<br/>				udtModbusControl.iDataCount_FC4 		:= iDataCount;<br/>				udtModbusControl.uiSlaveAddress 		:= uiSlaveAddress;<br/>				udtModbusControl.uiStartAddress_FC4		:= uiStartAddress;<br/>				udtModbusControl.xSendRequest_FC4		:= TRUE;<br/>
+									<br/>				xBusy	:= TRUE;<br/>
+									<br/>				iStep := 1;<br/>
+									<br/>			END_IF;<br/>
+									<br/>		1:<br/>
+									<br/>	      udtModbusControl.xSendRequest_FC4     := FALSE;<br/>		  udtModbusControl.iDataCount_FC4 		:= iDataCount;<br/>		  udtModbusControl.uiSlaveAddress 		:= uiSlaveAddress;<br/>		  udtModbusControl.uiStartAddress_FC4	:= uiStartAddress;<br/>
+									<br/>	      IF 	((udtModbusControl.xDone_FC4 OR <br/>	        	udtModbusControl.xError_FC4) AND <br/>	      		(udtModbusControl.Master_uiRcvDataCount = INT_TO_UINT(iDataCount * 2)) AND<br/>	      		(udtModbusControl.Master_uiSlaveAddress  = uiSlaveAddress) AND<br/>	      		(udtModbusControl.Master_uiStartAddress = uiStartAddress) AND<br/>	      		(udtModbusControl.Master_iFunctionCode = 4))<br/>
+									<br/>				OR<br/>
+									<br/>				(*<br/>				(xTimeout AND<br/>				(udtModbusControl.Master_uiSlaveAddress  = uiSlaveAddress) AND<br/>	      		(udtModbusControl.Master_uiStartAddress = uiStartAddress) AND<br/>	      		(udtModbusControl.Master_iFunctionCode = 3))<br/>				*)<br/>
+									<br/>				xTimeout<br/>
+									<br/>		  	THEN<br/>
+									<br/>					IF udtModbusControl.xDone_FC4 THEN<br/>						arrReadData := udtModbusControl.arrReadData_FC4;<br/>					END_IF;<br/>
+									<br/>					xDone	:= udtModbusControl.xDone_FC4;<br/>					xError	:= udtModbusControl.xError_FC4 OR xTimeout;<br/>
+									<br/>					xBusy	:= FALSE;<br/>
+									<br/>					iStep := 0;<br/>
+									<br/>				END_IF;<br/>
+									<br/>	END_CASE;<br/> <br/>ELSE<br/>
+									<br/>	xDone	:= FALSE;<br/>	xError	:= FALSE;<br/>	xBusy	:= FALSE;<br/>	iStep	:= 0;<br/>
+									<br/>END_IF;<br/>
+								</p>
+							</html>
+						</worksheet>
+					</ST>
+				</body>
+				<documentation>
+					<html xmlns="http://www.w3.org/1999/xhtml">
+						<div xml:space="preserve" id="MWTDESCRIPTION" wsName="MB_RTU_FC4_ABSTRACTT" xmlns="http://www.w3.org/1999/xhtml"/>
+					</html>
+				</documentation>
+			</pou>
+		</pous>
+	</types>
+	<instances>
+		<configurations/>
+	</instances>
+</project>

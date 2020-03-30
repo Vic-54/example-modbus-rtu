@@ -1,0 +1,122 @@
+<project xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kw-software.com/xml/PLCopen/TC6_XML_V10_KW.xsd">
+	<fileHeader companyName="Phoenix Contact" companyURL="https://www.phoenixcontact-software.com" productName="PC WORX" productVersion="6.30" productRelease="Build 665" creationDateTime="2020-03-30T11:43:55" contentDescription="###XMLINFO=2;1;"/>
+	<contentHeader name="example-modbus-rtu" version="1585557835" modificationDateTime="2020-03-30T11:43:55" connectionCheck="true">
+		<coordinateInfo>
+			<pageSize x="999" y="9999"/>
+			<fbd>
+				<scaling x="2" y="2"/>
+			</fbd>
+			<ld>
+				<scaling x="2" y="2"/>
+			</ld>
+			<sfc>
+				<scaling x="2" y="2"/>
+			</sfc>
+		</coordinateInfo>
+	</contentHeader>
+	<types>
+		<dataTypes/>
+		<pous>
+			<pou name="REQ_CNT" pouType="functionBlock" pouGroup="Modbus" lastChange="2020-03-30T11:43:54">
+				<interface>
+					<outputVars retain="false">
+						<variable name="xOut" group="outputs">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+					</outputVars>
+					<localVars retain="false">
+						<variable name="uiReqNo_Registered" redundant="true" group="internal">
+							<type>
+								<UINT/>
+							</type>
+						</variable>
+						<variable name="uiRespNo_Registered" redundant="true" group="internal">
+							<type>
+								<UINT/>
+							</type>
+						</variable>
+						<variable name="TON_1" group="internal">
+							<type>
+								<derived name="TON"/>
+							</type>
+						</variable>
+						<variable name="TON_2" group="internal">
+							<type>
+								<derived name="TON"/>
+							</type>
+						</variable>
+					</localVars>
+					<inputVars retain="false">
+						<variable name="xDisable" group="inputs">
+							<type>
+								<BOOL/>
+							</type>
+						</variable>
+						<variable name="tTimeDelayRequests" group="inputs">
+							<type>
+								<TIME/>
+							</type>
+						</variable>
+						<variable name="tTimeDelayResponces" group="inputs">
+							<type>
+								<TIME/>
+							</type>
+						</variable>
+						<variable name="uiReqNo" group="inputs">
+							<type>
+								<UINT/>
+							</type>
+						</variable>
+						<variable name="uiRespNo" group="inputs">
+							<type>
+								<UINT/>
+							</type>
+						</variable>
+					</inputVars>
+					<localVars retain="false">
+						<variable name="R_TRIG_1" group="inputs">
+							<type>
+								<derived name="R_TRIG"/>
+							</type>
+						</variable>
+					</localVars>
+				</interface>
+				<body>
+					<ST>
+						<worksheet name="REQ_CNT">
+							<html xmlns="http://www.w3.org/1999/xhtml">
+								<p xml:space="preserve" xmlns="http://www.w3.org/1999/xhtml">(*<br/>FB generate a boolean output if:<br/>	uiReqNo<br/>	uiRespNo<br/>do not counting up longer than specified delay time<br/>
+									<br/>*)<br/>
+									<br/>
+									<br/>TON_1.IN := (uiReqNo = uiReqNo_Registered AND NOT xDisable AND NOT xOut);<br/>TON_1.PT := tTimeDelayRequests;<br/>TON_1(); (*uiReqNo*)<br/>
+									<br/>
+									<br/>TON_2.IN := (uiRespNo = uiRespNo_Registered AND NOT xDisable AND NOT xOut);<br/>TON_2.PT := tTimeDelayResponces;<br/>TON_2(); (*uiRespNo*)<br/>
+									<br/>
+									<br/>R_TRIG_1.CLK 	:= TON_1.Q OR TON_2.Q;<br/>R_TRIG_1();<br/>xOut			:= R_TRIG_1.Q;<br/>
+									<br/>IF uiReqNo &lt;&gt; uiReqNo_Registered THEN<br/>	uiReqNo_Registered := uiReqNo;<br/>END_IF;<br/>
+									<br/>IF uiRespNo &lt;&gt; uiRespNo_Registered THEN<br/>	uiRespNo_Registered := uiRespNo;<br/>END_IF;<br/>
+									<br/>
+									<br/>
+									<br/>
+								</p>
+							</html>
+						</worksheet>
+					</ST>
+				</body>
+				<documentation>
+					<html xmlns="http://www.w3.org/1999/xhtml">
+						<div xml:space="preserve" id="MWTDESCRIPTION" wsName="REQ_CNTT" xmlns="http://www.w3.org/1999/xhtml">(*<br/>FB generate a boolean output if:<br/>	uiReqNo<br/>	uiRespNo<br/>do not counting up longer than specified delay time<br/>
+							<br/>*)<br/>************<br/>Versioning<br/>************<br/>
+							<br/>15.01.2016	KONOPKOV Inital Version<br/>
+						</div>
+					</html>
+				</documentation>
+			</pou>
+		</pous>
+	</types>
+	<instances>
+		<configurations/>
+	</instances>
+</project>
